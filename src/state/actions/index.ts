@@ -1,3 +1,4 @@
+import { Settings } from "http2";
 import { ActionType } from "../action-types";
 import { CellTypes } from "../cell";
 
@@ -29,8 +30,28 @@ export interface UpdateCellAction {
   };
 }
 
+export interface BundleStartAction {
+  type: ActionType.BUNDLE_START;
+  payload: {
+    cellId: string;
+  };
+}
+
+export interface BundleCompleteAction {
+  type: ActionType.BUNDLE_COMPLETE;
+  payload: {
+    cellId: string;
+    bundle: {
+      code: string;
+      err: string;
+    };
+  };
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
   | InsertCellAfterAction
-  | UpdateCellAction;
+  | UpdateCellAction
+  | BundleStartAction
+  | BundleCompleteAction;
